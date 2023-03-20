@@ -1,5 +1,10 @@
 import React from 'react'
+import { GameStateProvider } from '~/game-state'
 
 export const App: React.FC = () => {
-  return <div>Welcome to T3!</div>
+  return (
+    <GameStateProvider>
+      <div>hello</div>
+    </GameStateProvider>
+  )
 }
