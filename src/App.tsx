@@ -1,16 +1,21 @@
 import { Block, Row } from 'jsxstyle'
 import React, { PropsWithChildren } from 'react'
 import colors from 'tailwindcss/colors'
+import { createGameApi, GameApiProvider } from '~/api'
 import { GameStateProvider } from '~/game-state'
 import { GameBoardController } from './GameBoard'
 
+const gameApi = createGameApi()
+
 export const App: React.FC = () => {
   return (
-    <GameStateProvider>
-      <Container>
-        <GameBoardController />
-      </Container>
-    </GameStateProvider>
+    <GameApiProvider gameApi={gameApi}>
+      <GameStateProvider>
+        <Container>
+          <GameBoardController />
+        </Container>
+      </GameStateProvider>
+    </GameApiProvider>
   )
 }
 

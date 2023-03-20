@@ -1,13 +1,22 @@
-import React from 'react'
-import { Player, updateGameState, useGameState } from '~/game-state'
+import React, { useCallback, useEffect } from 'react'
+import { useGameApi } from '~/api'
+import { Player, useGameState } from '~/game-state'
 import { GameBoard } from './GameBoard'
 
 export const GameBoardController: React.FC = () => {
+  const gameApi = useGameApi()
   const [gameState, setGameState] = useGameState()
 
-  function onMove(player: Player, index: number) {
-    setGameState(state => updateGameState(state, { player, index }))
-  }
+  const onMove = useCallback(
+    (player: Player, index: number) => {
+      gameApi.makeMove({ player, index })
+    },
+    [gameApi]
+  )
+
+  useEffect(() => {
+    return gameApi.subscribeToGameState(setGameState)
+  }, [gameApi, setGameState])
 
   return <GameBoard gameState={gameState} onMove={onMove} />
 }
