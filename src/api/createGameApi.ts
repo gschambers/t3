@@ -5,11 +5,14 @@ import { AllIntents } from './types'
 export function createGameApi() {
   // In a distributed production system, the logic to reconcile moves into
   // existing game state and broadcast to all subscribers would be handled
-  // by a server. For the purposes of this demo, we'll use a simple
+  // by the server. For the purposes of this demo, we'll use a simple
   // BehaviorSubject to replicate the behavior of a server.
   const gameState$ = new BehaviorSubject<GameState>(createGameState())
 
   function raiseIntent(intent: AllIntents): void {
+    // In the production version, these intents would be sent over a channel
+    // to the server (e.g. via WebSocket) and the reconciled game state would
+    // be broadcast to both players.
     switch (intent.type) {
       case 'START_NEW_GAME':
         gameState$.next(createGameState())
