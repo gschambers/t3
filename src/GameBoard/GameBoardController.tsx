@@ -14,9 +14,19 @@ export const GameBoardController: React.FC = () => {
     [gameApi]
   )
 
+  const onStartNewGame = useCallback(() => {
+    gameApi.startNewGame()
+  }, [gameApi])
+
   useEffect(() => {
     return gameApi.subscribeToGameState(setGameState)
   }, [gameApi, setGameState])
 
-  return <GameBoard gameState={gameState} onMove={onMove} />
+  return (
+    <GameBoard
+      gameState={gameState}
+      onMove={onMove}
+      onStartNewGame={onStartNewGame}
+    />
+  )
 }

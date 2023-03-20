@@ -27,7 +27,7 @@ const Container: React.FC<PropsWithChildren> = ({ children }) => {
       justifyContent="center"
       backgroundColor={colors.slate['50']}
     >
-      <Block width="50vmin" height="50vmin">
+      <Block width="50vmin" height="calc(50vmin + 40px)">
         {children}
       </Block>
     </Row>
