@@ -45,6 +45,20 @@ describe('actions', () => {
       expect(invalidUpdatedState).toEqual(updatedState)
     })
 
+    // check game state is not updated if game is over
+    it('should not update the game state if game is over', () => {
+      const state: GameState = {
+        board: [null, 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'X'],
+        currentPlayer: 'X',
+        winner: 'X',
+        gameOver: true,
+      }
+
+      const move: Move = { index: 0, player: 'X' }
+      const updatedState = updateGameState(state, move)
+      expect(updatedState).toEqual(state)
+    })
+
     it('should set the winner to X and game is over when X wins', () => {
       const state: GameState = {
         board: ['X', 'O', null, 'X', 'O', null, null, null, null],

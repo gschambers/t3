@@ -12,6 +12,10 @@ export function createGameState(): GameState {
 export function updateGameState(state: GameState, move: Move): GameState {
   const { index, player } = move
 
+  if (state.gameOver) {
+    return state
+  }
+
   if (player !== state.currentPlayer) {
     return state
   }
