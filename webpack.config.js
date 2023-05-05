@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const DotenvPlugin = require('dotenv-webpack')
 const { EsbuildPlugin } = require('esbuild-loader')
 const path = require('path')
@@ -48,6 +49,13 @@ module.exports = {
     new DotenvPlugin({
       safe: true,
       systemvars: true,
+    }),
+
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: path.resolve(__dirname, 'static'),
+        to: path.resolve(__dirname, 'dist'),
+      }],
     }),
   ],
 
